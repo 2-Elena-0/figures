@@ -1,14 +1,15 @@
 import sys
 from random import randint
-from PyQt5 import uic, QtGui
+from PyQt5 import QtGui
 from PyQt5.QtGui import QPainter
 from PyQt5.QtWidgets import QApplication, QMainWindow
+from Ui import Ui_MainWindow
 
 
-class Window(QMainWindow):
+class Window(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(Window, self).__init__()
-        uic.loadUi('Ui.ui', self)
+        self.setupUi(self)
         self.do_paint = False
         self.button.clicked.connect(self.paint)
 
@@ -16,7 +17,7 @@ class Window(QMainWindow):
         if self.do_paint:
             painter = QPainter(self)
             painter.begin(self)
-            painter.setPen(QtGui.QPen(QtGui.QColor('yellow'), 5))
+            painter.setPen(QtGui.QPen(QtGui.QColor(randint(0, 256), randint(0, 256), randint(0, 256)), 5))
             coords = [randint(70, 440), randint(0, 290)]
             size = randint(2, 200)
             if int(coords[0]) + size > 450:
